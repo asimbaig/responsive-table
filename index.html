@@ -1,0 +1,440 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=d3, initial-scale=1.0" />
+    <title>Responsive Table</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Eagle Lake"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <style>
+      .title {
+        font-family: "Eagle Lake";
+        font-size: 30px;
+      }
+      .header{
+        font-family: "Roboto";
+        font-size: 15px;
+        padding: 10px;
+        background-color: rgb(83, 82, 82);
+        color: #fff;
+      }      
+      /* Create Shadow around div */
+      .div_shadow {
+        margin: 5px;
+        box-shadow: 5px 5px 3px grey;
+      }
+
+      /* Make HTML Table Responsive */
+      .responsive_table {
+        margin: auto;
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        font-family: "Roboto";
+        font-size: 20px;
+      }
+      .responsive_table tr:first-child {
+        text-align: center;
+        /* border-top: none; */
+        background-color: rgb(83, 82, 82);
+        color: #fff;
+      }
+      .responsive_table tr {
+        text-align: center;
+        /* border-top: 2px solid;
+        border-bottom: 2px solid; */
+        /* border: 3px solid; */
+        /* background-color: inherit; */
+      }
+      .responsive_table tr:nth-child(even):not(:first-child) {
+        text-align: center;
+        background-color: rgb(226, 226, 226);
+      }
+      .responsive_table th {
+        display: none;
+      }
+      .responsive_table td {
+        text-align: center;
+        display: block;
+        border-bottom: 1px solid;
+        border-color: rgb(201, 201, 201);
+      }
+      .responsive_table td:first-child {
+        margin-top: 1px;
+      }
+      .responsive_table td:last-child {
+        margin-bottom: 1px;
+      }
+      .responsive_table td:before {
+        content: attr(data-th) " : ";
+        font-weight: bold;
+        width: 120px;
+        display: inline-block;
+        color: inherit;
+      }
+      .responsive_table th,
+      .responsive_table td {
+        text-align: left;
+      }
+      .responsive_table {
+        color: inherit;
+        /* border-radius: 0.4em; */
+        overflow: hidden;
+      }
+      .responsive_table tr {
+        border-color: inherit;
+      }
+      .responsive_table th,
+      .responsive_table td {
+        padding: 0.5em 1em;
+      }
+      @media screen and (max-width: 601px) {
+        .responsive_table tr:nth-child(2) {
+          color: inherit;
+        }
+        .responsive_table tr:hover:not(:first-child) {
+          border: 3px solid;
+          border-color: #fff;
+          background-color: rgb(83, 82, 82);
+          color: #fff;
+        }
+      }
+      @media screen and (min-width: 600px) {
+        .responsive_table tr:hover:not(:first-child) {
+          border: 3px solid;
+          border-color: #fff;
+          background-color: rgb(83, 82, 82);
+          color: #fff;
+        }
+
+        .responsive_table td:before {
+          display: none;
+        }
+
+        .responsive_table th,
+        .responsive_table td {
+          display: table-cell;
+          padding: 0.25em 0.5em;
+        }
+
+        .responsive_table th:first-child,
+        .responsive_table td:first-child {
+          padding-left: 0;
+        }
+
+        .responsive_table th:last-child,
+        .responsive_table td:last-child {
+          padding-right: 0;
+        }
+
+        .responsive_table th,
+        .responsive_table td {
+          padding: 1em !important;
+        }
+      }
+
+      /* Pagination CSS */
+      .right {
+        float: right;
+      }
+      .left {
+        float: left;
+      }
+      .pagination {
+        /* display: inline; */
+        font-family: "Roboto";
+        font-size: 20px;
+      }
+      .pagination a {
+        color: black;
+        /* padding: 0px 4px; */
+        padding-left: 5px;
+        padding-right: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        /* border: 1px solid #ddd; */
+        margin: 0 4px;
+      }
+      .pagination a.active {
+        background-color: rgb(83, 82, 82);
+        color: white;
+        /* border: 1px solid #4caf50; */
+      }
+      .pagination a:hover:not(.active) {
+        background-color: #ddd;
+      }
+      .fas {
+        /* margin-top: 7px; */
+        color: rgb(83, 82, 82);
+      }
+
+      /* Classes for Flex, display div(s) inline  */
+      .flex-container {
+        display: flex;
+      }
+      .flex-child {
+        flex: 1;
+        /* border: 2px solid yellow; */
+      }
+      .flex-child:first-child {
+        margin-right: 20px;
+      }
+
+      /* Classes for custom selector menu */
+      /*the container must be positioned relative:*/
+      .custom-select {
+        position: relative;
+        /* font-family: Arial; */
+      }
+      .custom-select select {
+        display: none; /*hide original SELECT element:*/
+      }
+      .select-selected {
+        background-color: rgb(83, 82, 82);
+      }
+      /*style the arrow inside the select element:*/
+      .select-selected:after {
+        position: absolute;
+        content: "";
+        top: 14px;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #fff transparent transparent transparent;
+      }
+      /*point the arrow upwards when the select box is open (active):*/
+      .select-selected.select-arrow-active:after {
+        border-color: transparent transparent #fff transparent;
+        top: 7px;
+      }
+      /*style the items (options), including the selected item:*/
+      .select-items div,
+      .select-selected {
+        color: #ffffff;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        cursor: pointer;
+        user-select: none;
+      }
+      /*style items (options):*/
+      .select-items {
+        position: absolute;
+        background-color: rgb(83, 82, 82);
+        /* top: 100%; */
+        left: 0;
+        right: 0;
+        bottom: 100%;
+        z-index: 99;
+      }
+      /*hide the items when the select box is closed:*/
+      .select-hide {
+        display: none;
+      }
+      .select-items div:hover,
+      .same-as-selected {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <center><span class="title">Responsive Table</span></center>
+    <hr>
+    <div class="flex-container div_shadow"><span class="header">Showing 1 to 20 of 40 entries</span></div>
+    <table class="div_shadow responsive_table table-bordered">
+      <tr>
+        <th>Company</th>
+        <th>Contact</th>
+        <th>Country</th>
+        <th>City</th>
+      </tr>
+      <tr>
+        <td data-th="Company">Alfreds Futterkiste</td>
+        <td data-th="Contact">Maria Anders</td>
+        <td data-th="Country">Germany</td>
+        <td data-th="City">City 1</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Centro comercial Moctezuma</td>
+        <td data-th="Contact">Francisco Chang</td>
+        <td data-th="Country">Mexico</td>
+        <td data-th="City">City 2</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Ernst Handel</td>
+        <td data-th="Contact">Roland Mendel</td>
+        <td data-th="Country">Austria</td>
+        <td data-th="City">City 3</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Island Trading</td>
+        <td data-th="Contact">Helen Bennett</td>
+        <td data-th="Country">UK</td>
+        <td data-th="City">City 4</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Laughing Bacchus Winecellars</td>
+        <td data-th="Contact">Yoshi Tannamuri</td>
+        <td data-th="Country">Canada</td>
+        <td data-th="City">City 5</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Magazzini Alimentari Riuniti</td>
+        <td data-th="Contact">Giovanni Rovelli</td>
+        <td data-th="Country">Italy</td>
+        <td data-th="City">City 6</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Alfreds Futterkiste</td>
+        <td data-th="Contact">Maria Anders</td>
+        <td data-th="Country">Germany</td>
+        <td data-th="City">City 7</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Centro comercial Moctezuma</td>
+        <td data-th="Contact">Francisco Chang</td>
+        <td data-th="Country">Mexico</td>
+        <td data-th="City">City 8</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Ernst Handel</td>
+        <td data-th="Contact">Roland Mendel</td>
+        <td data-th="Country">Austria</td>
+        <td data-th="City">City 9</td>
+      </tr>
+      <tr>
+        <td data-th="Company">Island Trading</td>
+        <td data-th="Contact">Helen Bennett</td>
+        <td data-th="Country">UK</td>
+        <td data-th="City">City 10</td>
+      </tr>
+    </table>
+    <div class="flex-container div_shadow">
+      <div class="flex-child">
+        <div class="pagination">
+          <div class="custom-select" style="width: 25%;">
+            <select>
+              <option value="0">Page Size</option>
+              <option value="1">25</option>
+              <option value="2">50</option>
+              <option value="3">75</option>
+              <option value="4">100</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-child" style="margin-top: 10px;">
+        <div class="pagination right">
+          <a href="#"><i class="fas fa-step-backward"></i></a>
+          <a href="#"><i class="fas fa-backward"></i></a>
+          <a href="#">1</a>
+          <a href="#" class="active">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#"><i class="fas fa-forward"></i></a>
+          <a href="#"><i class="fas fa-step-forward"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var x, i, j, l, ll, selElmnt, a, b, c;
+      /*look for any elements with the class "custom-select":*/
+      x = document.getElementsByClassName("custom-select");
+      l = x.length;
+      for (i = 0; i < l; i++) {
+        selElmnt = x[i].getElementsByTagName("select")[0];
+        ll = selElmnt.length;
+        /*for each element, create a new DIV that will act as the selected item:*/
+        a = document.createElement("DIV");
+        a.setAttribute("class", "select-selected");
+        a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+        x[i].appendChild(a);
+        /*for each element, create a new DIV that will contain the option list:*/
+        b = document.createElement("DIV");
+        b.setAttribute("class", "select-items select-hide");
+        for (j = 1; j < ll; j++) {
+          /*for each option in the original select element,
+          create a new DIV that will act as an option item:*/
+          c = document.createElement("DIV");
+          c.innerHTML = selElmnt.options[j].innerHTML;
+          c.addEventListener("click", function (e) {
+            /*when an item is clicked, update the original select box,
+              and the selected item:*/
+            var y, i, k, s, h, sl, yl;
+            s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+            sl = s.length;
+            h = this.parentNode.previousSibling;
+            for (i = 0; i < sl; i++) {
+              if (s.options[i].innerHTML == this.innerHTML) {
+                s.selectedIndex = i;
+                h.innerHTML = this.innerHTML;
+                y = this.parentNode.getElementsByClassName("same-as-selected");
+                yl = y.length;
+                for (k = 0; k < yl; k++) {
+                  y[k].removeAttribute("class");
+                }
+                this.setAttribute("class", "same-as-selected");
+                break;
+              }
+            }
+            h.click();
+          });
+          b.appendChild(c);
+        }
+        x[i].appendChild(b);
+        a.addEventListener("click", function (e) {
+          /*when the select box is clicked, close any other select boxes,
+            and open/close the current select box:*/
+          e.stopPropagation();
+          closeAllSelect(this);
+          this.nextSibling.classList.toggle("select-hide");
+          this.classList.toggle("select-arrow-active");
+        });
+      }
+      function closeAllSelect(elmnt) {
+        /*a function that will close all select boxes in the document,
+        except the current select box:*/
+        var x,
+          y,
+          i,
+          xl,
+          yl,
+          arrNo = [];
+        x = document.getElementsByClassName("select-items");
+        y = document.getElementsByClassName("select-selected");
+        xl = x.length;
+        yl = y.length;
+        for (i = 0; i < yl; i++) {
+          if (elmnt == y[i]) {
+            arrNo.push(i);
+          } else {
+            y[i].classList.remove("select-arrow-active");
+          }
+        }
+        for (i = 0; i < xl; i++) {
+          if (arrNo.indexOf(i)) {
+            x[i].classList.add("select-hide");
+          }
+        }
+      }
+      /*if the user clicks anywhere outside the select box,
+      then close all select boxes:*/
+      document.addEventListener("click", closeAllSelect);
+    </script>
+  </body>
+</html>
